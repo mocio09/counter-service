@@ -34,7 +34,7 @@ pipeline {
       steps {
           // Run Trivy to scan the Docker image
           sh 'docker run -d -p 8212:80 --name counter-service counter-service'
-          sh 'docker inspect -f \'{{if .State.Running}}{{print "Container is running."}}{{else}}{{print "Something is wrong. Container is down"}}{{end}}\' counter-service 2>/dev/null'
+          sh 'docker inspect -f \'{{if .State.Running}}{{print "Container is running."}}{{else}}{{print "Something is wrong. Container is down"}}{{end}}\' counter-service 2>/dev/null | grep -q "running" || exit 1'
           //sh './tests/tests.sh'
           sh 'docker stop counter-service'
           sh 'docker rm counter-service'
