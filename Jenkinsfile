@@ -13,11 +13,20 @@ pipeline {
         }
       }
     }
+    
     stage('Build') {
        steps {
              sh 'printenv'
         }
      }
+    
+      stage('Print Current Working Directory') {
+      steps {
+        // Print the content of the current working directory
+        sh 'ls -la'
+      }
+    }
+
   }
 }
 
