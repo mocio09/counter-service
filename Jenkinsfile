@@ -28,7 +28,7 @@ pipeline {
      stage('Static Scan') {
       steps {
           // Run Trivy to scan the Docker image
-          sh 'trivy --no-progress counter-service'
+          sh 'trivy counter-service'
       }
     }
   }
