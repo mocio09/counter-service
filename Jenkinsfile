@@ -34,7 +34,7 @@ pipeline {
       steps {
           // Run Trivy to scan the Docker image
           sh 'docker run -d -p 8212:80 --name counter-service counter-service '
-          sh './tests/test.sh'
+          sh './tests/tests.sh'
           sh 'docker stop counter-service'
           sh 'docker rm counter-service'
       }
