@@ -8,10 +8,12 @@ pipeline {
       }
     }
 
-    stage('Additional Step on Merge') {
-      steps {
-        echo 'Additional step executed on merge to master'
-      }
+    script {
+       // Get the branch name
+       def branchName = env.BRANCH_NAME
+
+       // Print the branch name
+       echo "Current Branch: ${branchName}"
     }
   }
 }
