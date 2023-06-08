@@ -14,15 +14,9 @@ pipeline {
     stage('Build') {
        steps {
              sh 'printenv'
+             sh 'ls -la'
         }
      }
-    
-      stage('Print Current Working Directory') {
-      steps {
-        // Print the content of the current working directory
-        sh 'ls -la'
-      }
-    }
    
      stage('Build Docker Image') {
       steps {
