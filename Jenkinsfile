@@ -24,6 +24,7 @@ pipeline {
       }
     }
 
+    
      stage('Static Scan') {
       steps {
         // Install and run static scanning only for the 'master' branch
