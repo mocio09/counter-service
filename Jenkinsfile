@@ -27,6 +27,7 @@ pipeline {
      stage('Build Docker Image') {
       steps {
         sh 'curl -sSL https://get.docker.com/ | sh'
+        sh 'sudo service docker start'
         sh 'docker build -t counter-service .'
       }
     }
