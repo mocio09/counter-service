@@ -13,6 +13,6 @@ pipeline {
         echo 'Additional step executed on merge to master'
       }
     }
-  
+  }
 }
 
