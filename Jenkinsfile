@@ -1,10 +1,9 @@
 pipeline {
   agent any
 
-  stages {
-    stage('Print Message') {
+    stage('Checkout') {
       steps {
-        echo 'Pipeline triggered by push event'
+        git branch: "${env.BRANCH_NAME}", url: 'https://github.com/your/repository.git'
       }
     }
 
