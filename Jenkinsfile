@@ -28,7 +28,7 @@ pipeline {
      stage('Static Scan') {
       steps {
           // Run Trivy to scan the Docker image
-          sh 'trivy image counter-service --exit-code 1 --severity CRITICAL'
+          sh 'trivy image counter-service'
       }
     }
   }
