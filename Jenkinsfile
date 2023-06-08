@@ -1,6 +1,7 @@
 pipeline {
   agent any
-
+  
+  stages {
     stage('Checkout') {
       steps {
         git branch: "${env.BRANCH_NAME}", url: 'https://github.com/your/repository.git'
@@ -12,6 +13,6 @@ pipeline {
         echo 'Additional step executed on merge to master'
       }
     }
-  }
+  
 }
 
