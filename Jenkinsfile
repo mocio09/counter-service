@@ -13,11 +13,11 @@ pipeline {
         }
       }
     }
-    stage('Checkout') {
-      steps {
-        git branch: "${env.BRANCH_NAME}", url: 'https://github.com/mocio09/counter-service.git'
-      }
-    }
+    stage('Build') {
+       steps {
+             sh 'printenv'
+        }
+     }
   }
 }
 
