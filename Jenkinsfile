@@ -33,7 +33,7 @@ pipeline {
     stage('Run Docker Container and Run Container') {
       steps {
           // Run Trivy to scan the Docker image
-          sh 'docker run -p 8212:80 --name counter-service counter-service'
+          sh 'docker run -p 8212:80 --name counter-service counter-service -d'
           sh './tests/test.sh'
           sh 'docker stop counter-service'
       }
