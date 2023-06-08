@@ -29,8 +29,6 @@ pipeline {
    
      stage('Build Docker Image') {
       steps {
-        sh 'apt-get update'
-        sh 'apt-get install docker'
         sh 'docker build -t counter-service .'
       }
     }
