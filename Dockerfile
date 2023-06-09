@@ -13,4 +13,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the entrypoint to start the application
 ENTRYPOINT ["python", "app.py"]
-
