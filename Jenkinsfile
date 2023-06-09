@@ -56,5 +56,21 @@ pipeline {
         }
       }
     }
+
+    stage('Deploy to Production') { 
+      environment {
+        DOCKER_REGISTRY_USER = credentials('docker-reg-user')
+        DOCKER_REGISTRY_TOKEN = credentials('docker-reg-key')
+      }
+      steps {
+        withCredentials([file(credentialsId: 'HOST_CONNECT_SECRET', variable: 'HOST_CONNECT_SECRET')]) {
+          script {
+            sh 'echo "$HOST_CONNECT_SECRET" > pemfile.pem'
+            sh 'chmod 400 pemfile.pem'
+            sh 'ssh -i pemfile.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 --counter-service:latest"'
+          }
+        }
+      }
+    }
   }
 }
