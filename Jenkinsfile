@@ -64,7 +64,7 @@ pipeline {
       }
       steps {
         script {
-          withCredentials([file(credentialsId: 'private-key', variable: 'HOST_CONNECT_SECRET')]) {
+          withCredentials([file(credentialsId: 'HOST_CONNECT_SECRET', variable: 'private-key')]) {
             if (env.GIT_BRANCH == 'origin/main') {
               sh "cp \$private-key my-private-key.pem"
               sh 'chmod 400 my-private-key.pem'
