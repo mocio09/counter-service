@@ -49,9 +49,12 @@ pipeline {
       steps { 
         script {
           if (env.GIT_BRANCH == 'origin/main') {
+            def buildNumber = env.BUILD_NUMBER
             sh 'docker login -u=$DOCKER_REGISTRY_USER -p=$DOCKER_REGISTRY_TOKEN'
             sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:latest'
+            sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:${buildNumber}'
             sh 'docker push $DOCKER_REGISTRY_USER/counter-service:latest'
+            sh 'docker push $DOCKER_REGISTRY_USER/counter-service:latest${buildNumber}'
           }
         }
       }
