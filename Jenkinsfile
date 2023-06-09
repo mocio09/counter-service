@@ -68,7 +68,7 @@ pipeline {
             if (env.GIT_BRANCH == 'origin/main') {
               writeFile file: 'pk.pem', text: readFile(pk)
               sh 'chmod 400 pk.pem'
-              sh 'ssh -i pk.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 --counter-service:latest"'
+              sh 'ssh -o StrictHostKeyChecking=no -i pk.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 --counter-service:latest"'
             }
           }
         }
