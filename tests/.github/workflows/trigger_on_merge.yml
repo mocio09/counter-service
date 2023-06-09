@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+
+build:
+  name: Build
+  runs-on: ubuntu-latest
+  steps:
+  - name: trigger single Job
+    uses: appleboy/jenkins-action@master
+    with:
+      url: "http://34.134.137.212:8080"
+      user: "jenkins"
+      token: ${{ secrets.TOKEN }}
+      job: "DeployPROD"
