@@ -44,7 +44,7 @@ pipeline {
     stage('Publish Image') { 
       steps { 
         script {
-          if (env.BRANCH_NAME == 'origin/main') {
+          if (env.GIT_BRANCH == 'origin/main') {
             DOCKER_REGISTRY_USER = credentials('docker-reg-user')
             DOCKER_REGISTRY_TOKEN = credentials('docker-reg-key')
             sh 'docker login -u=$DOCKER_REGISTRY_USER -p=$DOCKER_REGISTRY_TOKEN'
