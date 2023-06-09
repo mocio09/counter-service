@@ -40,5 +40,19 @@ pipeline {
           sh 'docker rm counter-service'
       }
     }
+
+    stage('Publish Image') { 
+      steps { 
+        script {
+          if (env.BRANCH_NAME == 'origin/main') {
+            docker-registry-user = credentials('docker-reg-user')
+            docker-registry-token = credentials('docker-reg-key')
+            sh 'docker login -u=$docker-registry-user -p=$docker-registry-token'
+            sh 'docker tag counter-service mocio09/counter-service:latest'
+            sh 'docker push mocio09/counter-service:latest'
+          }
+        }
+      }
+    }
   }
 }
