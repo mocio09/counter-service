@@ -66,9 +66,8 @@ pipeline {
         script {
           withCredentials([file(credentialsId: 'HOST_CONNECT_SECRET', variable: 'pk')]) {
             if (env.GIT_BRANCH == 'origin/main') {
-              writeFile file: 'pk.pem', text: readFile(pk)
-              sh 'chmod 400 pk.pem'
-              sh 'ssh -o StrictHostKeyChecking=no -i pk.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 counter-service:latest"'
+              env.MY_FILE_PATH = "${env.WORKSPACE}/../pk.pem"
+              sh 'ssh -o StrictHostKeyChecking=no -i ${env.MY_FILE_PATH} centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 counter-service:latest"'
             }
           }
         }
