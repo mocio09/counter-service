@@ -49,9 +49,12 @@ pipeline {
       steps { 
         script {
           if (env.GIT_BRANCH == 'origin/main') {
+            def buildNumber = env.BUILD_NUMBER
             sh 'docker login -u=$DOCKER_REGISTRY_USER -p=$DOCKER_REGISTRY_TOKEN'
             sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:latest'
+            sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:${buildNumber}'
             sh 'docker push $DOCKER_REGISTRY_USER/counter-service:latest'
+            sh 'docker push $DOCKER_REGISTRY_USER/counter-service:${buildNumber}'
           }
         }
       }
@@ -66,8 +69,8 @@ pipeline {
         script {
           withCredentials([file(credentialsId: 'HOST_CONNECT_SECRET', variable: 'pk')]) {
             if (env.GIT_BRANCH == 'origin/main') {
-              env.MY_FILE_PATH = "${env.WORKSPACE}/../pk.pem"
-              sh 'ssh -o StrictHostKeyChecking=no -i "$env.MY_FILE_PATH/../pk.pem" centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 counter-service:latest"'
+              def workSpace = env.WORKSPACE
+              sh 'ssh -o StrictHostKeyChecking=no -i ${workSpace}/../pk.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 counter-service:latest"'
             }
           }
         }
