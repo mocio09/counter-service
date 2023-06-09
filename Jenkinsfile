@@ -64,10 +64,9 @@ pipeline {
       }
       steps {
         script {
-          withCredentials([file(credentialsId: 'HOST_CONNECT_SECRET', variable: 'HOST_CONNECT_SECRET')]) {
+          withCredentials([file(credentialsId: 'private-key', variable: 'HOST_CONNECT_SECRET')]) {
             if (env.GIT_BRANCH == 'origin/main') {
-              def pemFilePath = "${env.WORKSPACE}/pemfile.pem"
-              writeFile file: pemFilePath, text: env.PEM_FILE
+              sh "cp \$private-key my-private-key.pem"
               sh 'chmod 400 pemfile.pem'
               sh 'ssh -i pemfile.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 --counter-service:latest"'
             }
