@@ -52,8 +52,8 @@ pipeline {
             sh 'docker login -u=$DOCKER_REGISTRY_USER -p=$DOCKER_REGISTRY_TOKEN'
             sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:latest'
             sh 'docker push $DOCKER_REGISTRY_USER/counter-service:latest'
-            sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:${env.BUILD_NUMBER}'
-            sh 'docker push $DOCKER_REGISTRY_USER/counter-service:${env.BUILD_NUMBER}'
+            sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:${BUILD_NUMBER}'
+            sh 'docker push $DOCKER_REGISTRY_USER/counter-service:${BUILD_NUMBER}'
           }
         }
       }
