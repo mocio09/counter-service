@@ -42,14 +42,16 @@ pipeline {
     }
 
     stage('Publish Image') { 
+      environment {
+        DOCKER_REGISTRY_USER = credentials('docker-reg-user')
+        DOCKER_REGISTRY_TOKEN = credentials('docker-reg-key')
+      }
       steps { 
         script {
           if (env.GIT_BRANCH == 'origin/main') {
-            DOCKER_REGISTRY_USER = credentials('docker-reg-user')
-            DOCKER_REGISTRY_TOKEN = credentials('docker-reg-key')
             sh 'docker login -u=$DOCKER_REGISTRY_USER -p=$DOCKER_REGISTRY_TOKEN'
-            sh 'docker tag counter-service mocio09/counter-service:latest'
-            sh 'docker push mocio09/counter-service:latest'
+            sh 'docker tag counter-service $DOCKER_REGISTRY_USER/counter-service:latest'
+            sh 'docker push $DOCKER_REGISTRY_USER/counter-service:latest'
           }
         }
       }
