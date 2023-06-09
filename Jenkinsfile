@@ -67,8 +67,8 @@ pipeline {
           withCredentials([file(credentialsId: 'private-key', variable: 'HOST_CONNECT_SECRET')]) {
             if (env.GIT_BRANCH == 'origin/main') {
               sh "cp \$private-key my-private-key.pem"
-              sh 'chmod 400 pemfile.pem'
-              sh 'ssh -i pemfile.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 --counter-service:latest"'
+              sh 'chmod 400 my-private-key.pem'
+              sh 'ssh -i my-private-key.pem centos@35.158.123.255 "docker pull $DOCKER_REGISTRY_USER/counter-service:latest && docker run -d -p 80:80 --counter-service:latest"'
             }
           }
         }
