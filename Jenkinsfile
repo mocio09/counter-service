@@ -30,6 +30,7 @@ pipeline {
       }
     }
     
+    
     stage('Test') {
       steps {
           // Run Trivy to scan the Docker image
