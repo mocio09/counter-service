@@ -10,9 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: trigger single Job
-      uses: appleboy/jenkins-action@master
-      with:
-        url: "http://34.134.137.212:8080"
-        user: "jenkins"
-        token: ${{ secrets.TOKEN }}
-        job: "DeployPROD"
+      run: |
+        curl -I -u ${{secrets.USER}}:${{secrets.KEY}} "http://34.134.137.212:8080/job/DeployPROD/build?token=${{secrets.TOKEN}}"
