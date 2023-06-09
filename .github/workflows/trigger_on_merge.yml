@@ -11,4 +11,4 @@ jobs:
     steps:
     - name: trigger single Job
       run: |
-        curl -I -u ${{secrets.USER}}:${{secrets.KEY}} "http://34.134.137.212:8080/job/DeployCounterService/build?token=${{secrets.TOKEN}}"
+        curl -I -u ${{secrets.USER}}:${{secrets.KEY}} "http://34.134.137.212:8080/job/DeploymentPipeline/build?token=${{secrets.TOKEN}}"
