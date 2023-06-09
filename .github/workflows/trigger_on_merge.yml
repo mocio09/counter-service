@@ -1,0 +1,14 @@
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: trigger single Job
+      run: |
+        curl -I -u ${{secrets.USER}}:${{secrets.KEY}} "http://34.134.137.212:8080/job/DeploymentPipeline/build?token=${{secrets.TOKEN}}"
